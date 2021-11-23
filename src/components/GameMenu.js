@@ -16,7 +16,7 @@ export const GameMenu = (props) => {
             <button
                 className='game-menu-button'
                 id='progress'
-                onClick={props.progressOneStep}>
+                onClick={!props.run ? props.progressOneStep: ()=>{}}>
                     Progress One Step
             </button>
         </div>)
