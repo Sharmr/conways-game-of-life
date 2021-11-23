@@ -8,7 +8,6 @@ export const Cell = (props) => {
         <div 
             className='cell'
             style={style}
-            id={props.id}
-            onClick={() => {props.handleClick(props.id)}}>
+            onClick={() => {props.handleClick(props.x, props.y)}}>
         </div>)
 };

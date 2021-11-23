@@ -7,14 +7,14 @@ export const App = () => {
 
     const dimension = 50;
     const cell_size = 12;
-    const [model, updateModel] = React.useState(Helper.initializeModel(dimension*dimension, cell_size));
+    const [model, updateModel] = React.useState(Helper.initializeModel(dimension, cell_size));
     const [run, toggleRun] = React.useState(false);
 
-    const handleClick = (id) => {
+    const handleClick = (x, y) => {
         updateModel((prevModel) => {
-            return prevModel.map((cell) => {
-                return id === cell.id ? {...cell, on: !cell.on} : cell;
-            });
+            return prevModel.map((row) => row.map((cell) => {
+                return (x === cell.x && y === cell.y) ? {...cell, on: !cell.on} : cell;
+            }));
         });
     };
 
@@ -23,7 +23,9 @@ export const App = () => {
     };
 
     const clearBoard = () => {
-        updateModel(Helper.initializeModel(dimension*dimension, cell_size));
+        if(run)
+            toggleRun(prev_run => !prev_run);
+        updateModel(Helper.initializeModel(dimension, cell_size));
     };
     
     const progressOneStep = () => {
@@ -32,11 +34,11 @@ export const App = () => {
     }
 
     if(run) {
-        setTimeout(progressOneStep, 1000);
+        setTimeout(progressOneStep, 500);
     }
 
     return (<>
-                <h1>Something</h1>
+                <h1>Conway's Game of Life</h1>
                 <div className="main-game">
                     <GameWindow 
                         model={model}
